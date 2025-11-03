@@ -31,10 +31,11 @@ export default function Main() {
 
             //setup canvas
             const canvas = document.getElementById('roll');
-            canvas.width = canvas.width * 2;
-            canvas.height = canvas.height * 2;
-            const drawContext = canvas.getContext('2d');
-            const drawTime = [-2, 2];
+            if (canvas) {
+                canvas.width = canvas.width * 2;
+                canvas.height = canvas.height * 2;
+                const drawContext = canvas.getContext('2d');
+                const drawTime = [-2, 2];
 
             //creates instance of Strudel mirror
             globalEditor = new StrudelMirror({
@@ -63,8 +64,9 @@ export default function Main() {
             //initialise textBox and buttons
             if (procRef.current) {
                 procRef.current.value = stranger_tune; //load default tune
-                SetupButtons(globalEditor, procRef, Proc, ProcAndPlay);
-                Proc(globalEditor, procRef);
+                Proc(globalEditor);
+                SetupButtons(globalEditor, Proc, ProcAndPlay);
+
             }
         }
     }, []);
@@ -75,7 +77,7 @@ export default function Main() {
             <h2>Strudel Demo</h2>
             <main className="container-fluid">
                 <div className="row">
-                    <textBox />
+                    <TextBox />
                     <Controls />
                 </div>
 
