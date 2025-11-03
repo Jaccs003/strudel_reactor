@@ -1,3 +1,5 @@
+//event listeners are connected in Setup
+
 export default function Controls() {
     return (
         <div className="col-md-4">

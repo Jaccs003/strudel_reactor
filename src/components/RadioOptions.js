@@ -1,5 +1,7 @@
 import { ProcAndPlay } from '../utilities/Setup';
 
+//changing radio selections triggers proc and play to execute
+
 export default function RadioOptions() {
     return (
         <div className="col-md-4">

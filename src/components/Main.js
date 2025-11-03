@@ -16,21 +16,29 @@ import Canvas from './Canvas';
 let globalEditor = null;
 
 export default function Main() {
+    //Check if has already run
     const hasRun = useRef(false);
+    //holds the current strudel editor data
+    const editorRef = useRef(null); 
+    //reference to TextBox input
+    const procRef = useRef(null); 
 
     useEffect(() => {
+        //runs once, prepares console for strudel output
         if (!hasRun.current) {
             console_monkey_patch();
             hasRun.current = true;
 
+            //setup canvas
             const canvas = document.getElementById('roll');
             canvas.width = canvas.width * 2;
             canvas.height = canvas.height * 2;
             const drawContext = canvas.getContext('2d');
             const drawTime = [-2, 2];
 
+            //creates instance of Strudel mirror
             globalEditor = new StrudelMirror({
-                defaultOutput: webaudioOutput,
+                defaultOutput: webaudioOutput, //selects webaudio API for sound
                 getTime: () => getAudioContext().currentTime,
                 transpiler,
                 root: document.getElementById('editor'),
@@ -49,12 +57,19 @@ export default function Main() {
                 },
             });
 
-            document.getElementById('proc').value = stranger_tune;
-            SetupButtons(globalEditor, Proc, ProcAndPlay);
-            Proc(globalEditor);
+            //store editor instance for later usage
+            editorRef.current = globalEditor;
+
+            //initialise textBox and buttons
+            if (procRef.current) {
+                procRef.current.value = stranger_tune; //load default tune
+                SetupButtons(globalEditor, procRef, Proc, ProcAndPlay);
+                Proc(globalEditor, procRef);
+            }
         }
     }, []);
 
+    //html for page layout
     return (
         <div>
             <h2>Strudel Demo</h2>
