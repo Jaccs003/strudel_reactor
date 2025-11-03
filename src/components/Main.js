@@ -37,39 +37,39 @@ export default function Main() {
                 const drawContext = canvas.getContext('2d');
                 const drawTime = [-2, 2];
 
-            //creates instance of Strudel mirror
-            globalEditor = new StrudelMirror({
-                defaultOutput: webaudioOutput, //selects webaudio API for sound
-                getTime: () => getAudioContext().currentTime,
-                transpiler,
-                root: document.getElementById('editor'),
-                drawTime,
-                onDraw: (haps, time) => drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 }),
-                prebake: async () => {
-                    initAudioOnFirstClick();
-                    const loadModules = evalScope(
-                        import('@strudel/core'),
-                        import('@strudel/draw'),
-                        import('@strudel/mini'),
-                        import('@strudel/tonal'),
-                        import('@strudel/webaudio'),
-                    );
-                    await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
-                },
-            });
+                //creates instance of Strudel mirror
+                globalEditor = new StrudelMirror({
+                    defaultOutput: webaudioOutput, //selects webaudio API for sound
+                    getTime: () => getAudioContext().currentTime,
+                    transpiler,
+                    root: document.getElementById('editor'),
+                    drawTime,
+                    onDraw: (haps, time) => drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 }),
+                    prebake: async () => {
+                        initAudioOnFirstClick();
+                        const loadModules = evalScope(
+                            import('@strudel/core'),
+                            import('@strudel/draw'),
+                            import('@strudel/mini'),
+                            import('@strudel/tonal'),
+                            import('@strudel/webaudio'),
+                        );
 
-            //store editor instance for later usage
-            editorRef.current = globalEditor;
+                        await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
 
-            //initialise textBox and buttons
-            if (procRef.current) {
-                procRef.current.value = stranger_tune; //load default tune
-                Proc(globalEditor);
-                SetupButtons(globalEditor, Proc, ProcAndPlay);
+                        //initialise textBox and buttons
+                        if (procRef.current) {
+                            procRef.current.value = stranger_tune; //load default tune
+                            Proc(globalEditor, procRef);
 
+                        }
+                    }
+                });
+                editorRef.current = globalEditor;
+                SetupButtons(globalEditor, procRef, Proc, ProcAndPlay);
             }
         }
-    }, []);
+}, []);
 
     //html for page layout
     return (
@@ -77,7 +77,7 @@ export default function Main() {
             <h2>Strudel Demo</h2>
             <main className="container-fluid">
                 <div className="row">
-                    <TextBox />
+                    <TextBox ref={procRef} />
                     <Controls />
                 </div>
 
@@ -86,7 +86,8 @@ export default function Main() {
                         <div id="editor" />
                         <div id="output" />
                     </div>
-                    <RadioOptions />
+                    {/* pass globalEditor and procRef for RadioOptions to use */}
+                    <RadioOptions globalEditor={globalEditor} procRef={procRef} />
                 </div>
 
                 <Canvas />
