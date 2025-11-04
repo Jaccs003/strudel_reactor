@@ -1,40 +1,26 @@
-import { ProcessText } from './TextProcessor';
+// performs the processing of the textarea and updates the Strudel editor
+export function Proc(editor, procRef) {
+    if (!editor || !procRef?.current) return;
 
-//add listeners to buttons
-export function SetupButtons(globalEditor, procRef, Proc, ProcAndPlay) {
-    document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
-    document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
-    document.getElementById('process').addEventListener('click', () => Proc(globalEditor, procRef));
-    document.getElementById('process_play').addEventListener('click', () => {
-        if (globalEditor) {
-            Proc(globalEditor, procRef);
-            globalEditor.evaluate();
-        }
-    });
+    const text = procRef.current.value || '';
+    if (!text.trim()) return;
+
+    editor.setCode(text);
 }
 
-//performs the processing of the textBox area and updates the strudel editor
-export function Proc(globalEditor, procRef) {
-    //Error handling / prevention
-    if (!procRef || !procRef.current) return;
+// processes and plays only if playback has started
+export function ProcAndPlay(editor, procRef) {
+    if (!editor || !procRef?.current) return;
 
-    //get current text area values
-    let proc_text = procRef.current.value || '';
-    if (!proc_text.trim()) return; // skip if empty
-
-    //update strudel editor with post process code
-    globalEditor.setCode(proc_text);
-}
-
-//used for radio buttons with current textbox values
-export function ProcAndPlay(globalEditor, procRef) {
-    //Error handling / prevention
-    if (!globalEditor || !procRef || !procRef.current) return;
-
-    //only runs if playback has started
-    if (globalEditor.repl.state.started) {
-        Proc(globalEditor, procRef); //put textarea into editor
-        globalEditor.evaluate(); //play processed code
+    // Only run if playback has started
+    if (editor.repl?.state?.started) {
+        Proc(editor, procRef);
+        editor.evaluate();
     }
 }
 
+// optional utility to determine replacement for radio selection
+export function ProcessText() {
+    // returns "_" if the "HUSH" radio is selected
+    return document.getElementById('flexRadioDefault2')?.checked ? "_" : "";
+}

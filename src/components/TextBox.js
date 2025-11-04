@@ -1,6 +1,6 @@
-import { forwardRef } from 'react';
-
 //uses forward ref so Main can modify its value
+
+import { forwardRef } from 'react';
 
 const TextBox = forwardRef((props, ref) => {
     return (
