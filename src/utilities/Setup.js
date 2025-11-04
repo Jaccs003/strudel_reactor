@@ -1,5 +1,4 @@
 import { ProcessText } from './TextProcessor';
-import { getInstruments } from './InstrumentFinder';
 
 //add listeners to buttons
 export function SetupButtons(globalEditor, procRef, Proc, ProcAndPlay) {
@@ -15,7 +14,7 @@ export function SetupButtons(globalEditor, procRef, Proc, ProcAndPlay) {
 }
 
 //performs the processing of the textBox area and updates the strudel editor
-export async function Proc(globalEditor, procRef) {
+export function Proc(globalEditor, procRef) {
     //Error handling / prevention
     if (!procRef || !procRef.current) return;
 
@@ -25,13 +24,6 @@ export async function Proc(globalEditor, procRef) {
 
     //update strudel editor with post process code
     globalEditor.setCode(proc_text);
-
-    // calls instrument detection
-    const pattern = globalEditor.pattern;  // Strudel pattern currently loaded
-    const instruments = await getInstruments(pattern, globalEditor);
-
-    // shows in console so I can check its working
-    console.log("Detected instruments:", instruments);
 }
 
 //used for radio buttons with current textbox values
