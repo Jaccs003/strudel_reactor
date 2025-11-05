@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { StrudelMirror } from '@strudel/codemirror';
 import { evalScope } from '@strudel/core';
 import { drawPianoroll } from '@strudel/draw';
@@ -18,9 +18,30 @@ export default function Main() {
     const editorRef = useRef(null);
     const procRef = useRef(null);
     const canvasRef = useRef(null);
+
     const [globalEditor, setGlobalEditor] = useState(null);
-    const [hushMode, setHushMode] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    // settings control for future use
+    const [settings, setSettings] = useState({
+        instruments: { bass: true, drums: true, arp: true },
+        effects: { reverb: false, delay: false },
+        volume: 0.8,
+        speed: 140,
+        hushMode: false,
+    });
+
+    // helper function for settings updates
+    const updateSetting = useCallback((path, value) => {
+        setSettings((prev) => {
+            const copy = structuredClone(prev);
+            const keys = path.split('.');
+            let current = copy;
+            while (keys.length > 1) current = current[keys.shift()];
+            current[keys[0]] = value;
+            return copy;
+        });
+    }, []);
 
     useEffect(() => {
         if (hasRun.current) return;
@@ -74,6 +95,8 @@ export default function Main() {
         setGlobalEditor(editor);
     }, []);
 
+    if (loading) return <p>Loading Strudel...</p>;
+
     return (
         <div>
             <h2>Strudel Demo</h2>
@@ -81,6 +104,8 @@ export default function Main() {
                 <div className="row">
                     <TextBox ref={procRef} />
                     <Controls
+                        settings={settings}
+                        onChange={updateSetting}
                         onPreprocess={() => Proc(globalEditor, procRef)}
                         onProcPlay={() => {
                             Proc(globalEditor, procRef);
@@ -97,10 +122,10 @@ export default function Main() {
                         <div id="output" />
                     </div>
                     <RadioOptions
+                        settings={settings}
+                        onChange={updateSetting}
                         globalEditor={globalEditor}
                         procRef={procRef}
-                        hushMode={hushMode}
-                        setHushMode={setHushMode}
                     />
                 </div>
 
