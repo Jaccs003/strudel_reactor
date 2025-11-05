@@ -104,6 +104,7 @@ export default function Main() {
                     <TextBox ref={procRef} />
                     <Controls
                         settings={settings}
+                        setSettings={setSettings}
                         onChange={updateSetting}
                         onPreprocess={() => Proc(globalEditor, procRef)}
                         onProcPlay={() => {
