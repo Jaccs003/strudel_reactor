@@ -95,7 +95,6 @@ export default function Main() {
         setGlobalEditor(editor);
     }, []);
 
-    if (loading) return <p>Loading Strudel...</p>;
 
     return (
         <div>
@@ -123,6 +122,7 @@ export default function Main() {
                     </div>
                     <RadioOptions
                         settings={settings}
+                        setSettings={setSettings}
                         onChange={updateSetting}
                         globalEditor={globalEditor}
                         procRef={procRef}
