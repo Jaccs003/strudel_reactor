@@ -28,6 +28,7 @@ export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, set
 
     return (
         <div className="col-md-4">
+
             <nav>
                 <button className="btn btn-outline-primary" onClick={onPreprocess} >Preprocess</button>
                 <button className="btn btn-outline-primary" onClick={onProcPlay} >Proc & Play</button>
@@ -38,6 +39,41 @@ export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, set
                 <button className="btn btn-outline-primary" onClick={handleSave}>Save Settings</button>
                 <button className="btn btn-outline-primary" onClick={handleLoad}>Load Settings</button>
             </nav>
+
+            {/* Volume Slider (actually changes the settings)*/}
+            <div className="control-block">
+                <label>Volume: {settings.volume.toFixed(2)}</label>
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={settings.volume}
+                    onChange={(e) =>
+                        setSettings({
+                            ...settings,
+                            volume: Number(e.target.value)
+                        })
+                    }
+                />
+            </div>
+
+            {/* Mute Checkbox */}
+            <div className="control-block">
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={settings.mute}
+                        onChange={(e) =>
+                            setSettings({
+                                ...settings,
+                                mute: e.target.checked
+                            })
+                        }
+                    />
+                    Mute
+                </label>
+            </div>
         </div>
     );
 }

@@ -24,11 +24,11 @@ export default function Main() {
 
     // settings control for future use
     const [settings, setSettings] = useState({
-        instruments: { bass: true, drums: true, arp: true },
-        effects: { reverb: false, delay: false },
-        volume: 0.8,
+        instruments: { bass: true, drums: true, arp: true }, // added early for future use with isolating instruments for muting etc.
+        effects: { reverb: false, delay: false }, //added early for future use with effects
+        volume: 0.5,
         speed: 140,
-        hushMode: false,
+        mute: false,
     });
 
     // helper function for settings updates
