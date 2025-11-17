@@ -22,6 +22,10 @@ export default function Main() {
     const [globalEditor, setGlobalEditor] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const handleProc = (newSettings) => {
+        Proc(globalEditor, procRef, newSettings);
+    };
+
     // settings control for future use
     const [settings, setSettings] = useState({
         instruments: { bass: true, drums: true, arp: true }, // added early for future use with isolating instruments for muting etc.
@@ -29,6 +33,7 @@ export default function Main() {
         volume: 0.5,
         speed: 140,
         mute: false,
+        cps: { bpm: 140, div: 60, ticks: 4 }
     });
 
     // helper function for settings updates
@@ -79,9 +84,9 @@ export default function Main() {
 
                     await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
 
-                    if (procRef.current) {
+                    if (procRef.current && procRef.current.value.trim() === "") {
                         procRef.current.value = stranger_tune;
-                        Proc(editor, procRef);
+                        Proc(editor, procRef, settings);
                     }
                 } catch (err) {
                     console.error('Error during Strudel prebake:', err);
@@ -93,7 +98,7 @@ export default function Main() {
 
         editorRef.current = editor;
         setGlobalEditor(editor);
-    }, []);
+    }, [globalEditor]);
 
 
     return (
@@ -106,14 +111,16 @@ export default function Main() {
                         settings={settings}
                         setSettings={setSettings}
                         onChange={updateSetting}
-                        onPreprocess={() => Proc(globalEditor, procRef)}
+                        onPreprocess={() => handleProc(settings)}
                         onProcPlay={() => {
-                            Proc(globalEditor, procRef);
+                            handleProc(settings);
                             globalEditor.evaluate();
                         }}
                         onPlay={() => globalEditor.evaluate()}
                         onStop={() => globalEditor.stop()}
+                        onSettingsChange={handleProc}
                     />
+
                 </div>
 
                 <div className="row">

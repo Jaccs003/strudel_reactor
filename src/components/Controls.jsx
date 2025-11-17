@@ -39,7 +39,42 @@ export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, set
                 <button className="btn btn-outline-primary" onClick={handleSave}>Save Settings</button>
                 <button className="btn btn-outline-primary" onClick={handleLoad}>Load Settings</button>
             </nav>
-
+            {/* cpm controls */}
+            <div className="control-block">
+                <label>BPM:
+                    <input type="number"
+                        value={settings.cps.bpm}
+                        min="20" max="300"
+                        onChange={e => {
+                            const newSettings = { ...settings, cps: { ...settings.cps, bpm: Number(e.target.value) } };
+                            setSettings(newSettings);
+                            onPreprocess(newSettings); // call Proc with new settings
+                        }}
+                    />
+                </label>
+                <label>DIV:
+                    <input type="number"
+                        value={settings.cps.div}
+                        min="1"
+                        onChange={e => {
+                            const newSettings = { ...settings, cps: { ...settings.cps, div: Number(e.target.value) } };
+                            setSettings(newSettings);
+                            onPreprocess(newSettings);
+                        }}
+                    />
+                </label>
+                <label>TICKS:
+                    <input type="number"
+                        value={settings.cps.ticks}
+                        min="1"
+                        onChange={e => {
+                            const newSettings = { ...settings, cps: { ...settings.cps, ticks: Number(e.target.value) } };
+                            setSettings(newSettings);
+                            onPreprocess(newSettings);
+                        }}
+                    />
+                </label>
+            </div>
             {/* Volume Slider (actually changes the settings)*/}
             <div className="control-block">
                 <label>Volume: {settings.volume.toFixed(2)}</label>
