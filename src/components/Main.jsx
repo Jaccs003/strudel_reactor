@@ -26,6 +26,42 @@ export default function Main() {
         Proc(globalEditor, procRef, newSettings);
     };
 
+
+    const DEFAULT_SETTINGS = {
+        volume: {
+            main: 1,     
+            bass: 1,
+            drums: 1,
+            drums2: 0.6,
+            arp: 1
+        },
+        mute: {
+            main: false,
+            bass: false,
+            drums: false,
+            drums2: false,
+            arp: false
+        },
+        effects: {
+            reverb: {
+                main: 0.6,  
+                bass: 0.6,
+                drums: 0.3, 
+                drums2: 0.3,
+                arp: 0.6
+            },
+            delay: {
+                main: 0.0,   
+                bass: 0.0,
+                drums: 0.0,
+                drums2: 0.0,
+                arp: 0.0
+            }
+        },
+        cps: { bpm: 140, div: 60, ticks: 4 }
+    };
+
+
     // settings control for future use
     const [settings, setSettings] = useState({
         volume: {
@@ -137,6 +173,7 @@ export default function Main() {
                     <Controls
                         settings={settings}
                         setSettings={setSettings}
+                        defaultSettings={DEFAULT_SETTINGS}
                         onChange={updateSetting}
                         onPreprocess={() => handleProc(settings)}
                         onProcPlay={() => {

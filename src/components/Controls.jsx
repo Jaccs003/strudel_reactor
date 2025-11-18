@@ -1,6 +1,6 @@
 //event listeners are connected in Setup
 
-export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, settings, setSettings }) {
+export default function Controls({defaultSettings, onPreprocess, onProcPlay, onPlay, onStop, settings, setSettings }) {
 
     const handleSave = () => {
         try {
@@ -39,6 +39,11 @@ export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, set
                 <br />
                 <button className="btn btn-outline-primary" onClick={handleSave}>Save Settings</button>
                 <button className="btn btn-outline-primary" onClick={handleLoad}>Load Settings</button>
+                <button className="btn btn-outline-danger" onClick={() => {
+                    setSettings(defaultSettings);
+                    onPreprocess(defaultSettings);
+                }}> Reset to Default
+                </button>
             </nav>
 
             {/* CPS Controls */}
