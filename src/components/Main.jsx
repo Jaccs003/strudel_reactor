@@ -31,8 +31,8 @@ export default function Main() {
         volume: {
             main: 1,     
             bass: 1,
-            drums: 1,
-            drums2: 0.6,
+            drums: 0.6,
+            drums2: 0.3,
             arp: 1
         },
         mute: {

@@ -1,4 +1,6 @@
-//event listeners are connected in Setup
+//bootstrap bundle to support accordion
+
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export default function Controls({defaultSettings, onPreprocess, onProcPlay, onPlay, onStop, settings, setSettings }) {
 
@@ -239,7 +241,7 @@ export default function Controls({defaultSettings, onPreprocess, onProcPlay, onP
                 
                 {/* DRUMS2 SECTION */}
                 <div className="accordion-item">
-                    <h2 className="accordion-header" id="headingDrums">
+                    <h2 className="accordion-header" id="headingDrums2">
                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDrums2">
                             Drums2 Controls
                         </button>
