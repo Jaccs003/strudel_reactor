@@ -29,7 +29,6 @@ export default function Main() {
     // settings control for future use
     const [settings, setSettings] = useState({
         volume: {
-            main: 0.5,
             bass: 0.8,
             drums: 0.8,
             drums2: 0.8,
@@ -44,14 +43,12 @@ export default function Main() {
         },
         effects: {
             reverb: {
-                main: 0.1,
                 bass: 0.1,
                 drums: 0.1,
                 drums2: 0.1,
                 arp: 0.1
             },
             delay: {
-                main: 0.1,
                 bass: 0.1,
                 drums: 0.1,
                 drums2: 0.1,

@@ -80,24 +80,6 @@ export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, set
                 </label>
             </div>
 
-            {/* Global Volume */}
-            <div className="control-block">
-                <label>Master Volume: {settings.volume.main.toFixed(2)}</label>
-                <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value={settings.volume.main}
-                    onChange={(e) =>
-                        setSettings({
-                            ...settings,
-                            volume: { ...settings.volume, main: Number(e.target.value) }
-                        })
-                    }
-                />
-            </div>
-
             {/* Global Mute */}
             <div className="control-block">
                 <label>
@@ -113,48 +95,6 @@ export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, set
                     />
                     &nbsp;Mute Everything
                 </label>
-            </div>
-
-            {/* Global Reverb */}
-            <div className="control-block">
-                <label>Master Reverb: {settings.effects.reverb.main.toFixed(2)}</label>
-                <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value={settings.effects.reverb.main}
-                    onChange={(e) =>
-                        setSettings({
-                            ...settings,
-                            effects: {
-                                ...settings.effects,
-                                reverb: { ...settings.effects.reverb, main: Number(e.target.value) }
-                            }
-                        })
-                    }
-                />
-            </div>
-
-            {/* Global Delay */}
-            <div className="control-block">
-                <label>Master Delay: {settings.effects.delay.main.toFixed(2)}</label>
-                <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value={settings.effects.delay.main}
-                    onChange={(e) =>
-                        setSettings({
-                            ...settings,
-                            effects: {
-                                ...settings.effects,
-                                delay: { ...settings.effects.delay, main: Number(e.target.value) }
-                            }
-                        })
-                    }
-                />
             </div>
 
             {/* Instrument Controls Accordion */}
@@ -286,6 +226,72 @@ export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, set
                                     }
                                 />
                                 &nbsp;Mute Drums
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+                
+                {/* DRUMS2 SECTION */}
+                <div className="accordion-item">
+                    <h2 className="accordion-header" id="headingDrums">
+                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDrums2">
+                            Drums2 Controls
+                        </button>
+                    </h2>
+                    <div id="collapseDrums2" className="accordion-collapse collapse" data-bs-parent="#instrumentAccordion">
+                        <div className="accordion-body">
+
+                            <label>Drums2 Volume: {settings.volume.drums2.toFixed(2)}</label>
+                            <input type="range" min="0" max="1" step="0.01"
+                                value={settings.volume.drums2}
+                                onChange={(e) =>
+                                    setSettings({
+                                        ...settings,
+                                        volume: { ...settings.volume, drums2: Number(e.target.value) }
+                                    })
+                                }
+                            />
+
+                            <label>Drums2 Reverb: {settings.effects.reverb.drums2.toFixed(2)}</label>
+                            <input type="range" min="0" max="1" step="0.01"
+                                value={settings.effects.reverb.drums2}
+                                onChange={(e) =>
+                                    setSettings({
+                                        ...settings,
+                                        effects: {
+                                            ...settings.effects,
+                                            reverb: { ...settings.effects.reverb, drums2: Number(e.target.value) }
+                                        }
+                                    })
+                                }
+                            />
+
+                            <label>Drums2 Delay: {settings.effects.delay.drums2.toFixed(2)}</label>
+                            <input type="range" min="0" max="1" step="0.01"
+                                value={settings.effects.delay.drums2}
+                                onChange={(e) =>
+                                    setSettings({
+                                        ...settings,
+                                        effects: {
+                                            ...settings.effects,
+                                            delay: { ...settings.effects.delay, drums2: Number(e.target.value) }
+                                        }
+                                    })
+                                }
+                            />
+
+                            <label className="mt-2">
+                                <input type="checkbox"
+                                    checked={settings.mute.drums2}
+                                    onChange={(e) =>
+                                        setSettings({
+                                            ...settings,
+                                            mute: { ...settings.mute, drums2: e.target.checked }
+                                        })
+                                    }
+                                />
+                                &nbsp;Mute Drums2
                             </label>
 
                         </div>

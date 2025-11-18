@@ -1,9 +1,5 @@
 export const stranger_tune = `setcps({newCPS})
 
-all(x => x.gain({VOLUME}))
-all(x => x.room({REVERB}))
-all(x => x.delay({DELAY}))
-
 // main file
 
 samples('github:algorave-dave/samples')
@@ -22,7 +18,7 @@ const drum_structure = [
 "{x ~!9 x ~!5 x ~ x ~!7 x ~!3 < ~ x > ~}%16",
 ]
 
-2const basslines = [
+const basslines = [
   "[[eb1, eb2]!16 [f2, f1]!16 [g2, g1]!16 [f2, f1]!8 [bb2, bb1]!8]/8",
   "[[eb1, eb2]!16 [bb2, bb1]!16 [g2, g1]!16 [f2, f1]!4 [bb1, bb2]!4 [eb1, eb2]!4 [f1, f2]!4]/8"
 ]
