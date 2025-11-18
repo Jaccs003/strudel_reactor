@@ -22,7 +22,7 @@ const drum_structure = [
 "{x ~!9 x ~!5 x ~ x ~!7 x ~!3 < ~ x > ~}%16",
 ]
 
-const basslines = [
+2const basslines = [
   "[[eb1, eb2]!16 [f2, f1]!16 [g2, g1]!16 [f2, f1]!8 [bb2, bb1]!8]/8",
   "[[eb1, eb2]!16 [bb2, bb1]!16 [g2, g1]!16 [f2, f1]!4 [bb1, bb2]!4 [eb1, eb2]!4 [f1, f2]!4]/8"
 ]
@@ -53,6 +53,9 @@ note(pick(basslines, bass))
 .lpf(700)
 .room(0.4)
 .postgain(pick(gain_patterns, pattern))
+.gain({BASS_VOLUME})
+.room({BASS_REVERB})
+.delay({BASS_DELAY})
 
 
 main_arp: 
@@ -63,6 +66,9 @@ note(pick(arpeggiator1, "<0 1 2 3>/2"))
 .room(0.6)
 .lpenv(3.3)
 .postgain(pick(gain_patterns, pattern))
+.gain({ARP_VOLUME})
+.room({ARP_REVERB})
+.delay({ARP_DELAY})
 
 
 drums:
@@ -82,6 +88,9 @@ stack(
   .bank("[KorgDDM110, OberheimDmx]").speed(1.2)
   .postgain(.25),
 )
+.gain({DRUMS_VOLUME})
+.room({DRUMS_REVERB})
+.delay({DRUMS_DELAY})
 
 drums2: 
 stack(
@@ -99,6 +108,9 @@ stack(
   .speed(0.5)
   .rarely(jux(rev)),
 )
+.gain({DRUMS2_VOLUME})
+.room({DRUMS2_REVERB})
+.delay({DRUMS2_DELAY})
 
 
 

@@ -28,11 +28,36 @@ export default function Main() {
 
     // settings control for future use
     const [settings, setSettings] = useState({
-        instruments: { bass: true, drums: true, arp: true }, // added early for future use with isolating instruments for muting etc.
-        effects: { reverb: 0.1, delay: 0.1 }, //changed to numbers to avoid switching between values and booleans
-        volume: { main: 0.5 },
-        speed: 140,
-        mute: false,
+        volume: {
+            main: 0.5,
+            bass: 0.8,
+            drums: 0.8,
+            drums2: 0.8,
+            arp: 0.8
+        },
+        mute: {
+            main: false,
+            bass: false,
+            drums: false,
+            drums2: false,
+            arp: false
+        },
+        effects: {
+            reverb: {
+                main: 0.1,
+                bass: 0.1,
+                drums: 0.1,
+                drums2: 0.1,
+                arp: 0.1
+            },
+            delay: {
+                main: 0.1,
+                bass: 0.1,
+                drums: 0.1,
+                drums2: 0.1,
+                arp: 0.1
+            }
+        },
         cps: { bpm: 140, div: 60, ticks: 4 }
     });
 

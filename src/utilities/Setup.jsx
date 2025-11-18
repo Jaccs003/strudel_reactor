@@ -11,13 +11,25 @@ export function Proc(editor, procRef, settings) {
     text = text.replace(/\{newCPS\}/g, getCPS(settings));
 
     //mute override volume replacement
-    const vol = settings.mute ? 0 : settings.volume.main;
+    const bassVol = settings.mute.bass ? 0 : settings.volume.bass;
+    const drumsVol = settings.mute.drums ? 0 : settings.volume.drums;
+    const drums2Vol = settings.mute.drums ? 0 : settings.volume.drums2;
+    const arpVol = settings.mute.arp ? 0 : settings.volume.arp;
     //volume text replacement 
-    text = text.replace(/\{VOLUME\}/g, vol);
+    text = text.replace(/\{BASS_VOLUME\}/g, bassVol);
+    text = text.replace(/\{DRUMS_VOLUME\}/g, drumsVol);
+    text = text.replace(/\{DRUMS2_VOLUME\}/g, drums2Vol);
+    text = text.replace(/\{ARP_VOLUME\}/g, arpVol);
     //reverb text replacement
-    text = text.replace(/\{REVERB\}/g, settings.effects.reverb);
+    text = text.replace(/\{BASS_REVERB\}/g, settings.effects.reverb.bass);
+    text = text.replace(/\{DRUMS_REVERB\}/g, settings.effects.reverb.drums);
+    text = text.replace(/\{DRUMS2_REVERB\}/g, settings.effects.reverb.drums2);
+    text = text.replace(/\{ARP_REVERB\}/g, settings.effects.reverb.arp);
     //delay text replacement
-    text = text.replace(/\{DELAY\}/g, settings.effects.delay);
+    text = text.replace(/\{BASS_DELAY\}/g, settings.effects.delay.bass);
+    text = text.replace(/\{DRUMS_DELAY\}/g, settings.effects.delay.drums);
+    text = text.replace(/\{DRUMS2_DELAY\}/g, settings.effects.delay.drums2);
+    text = text.replace(/\{ARP_DELAY\}/g, settings.effects.delay.arp);
 
     editor.setCode(text);
 }
