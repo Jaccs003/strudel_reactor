@@ -7,7 +7,18 @@ export function Proc(editor, procRef, settings) {
     let text = procRef.current.value || '';
     if (!text.trim()) return;
 
+    //cps text replacement
     text = text.replace(/\{newCPS\}/g, getCPS(settings));
+
+    //mute override volume replacement
+    const vol = settings.mute ? 0 : settings.volume.main;
+    //volume text replacement 
+    text = text.replace(/\{VOLUME\}/g, vol);
+    //reverb text replacement
+    text = text.replace(/\{REVERB\}/g, settings.effects.reverb);
+    //delay text replacement
+    text = text.replace(/\{DELAY\}/g, settings.effects.delay);
+
     editor.setCode(text);
 }
 

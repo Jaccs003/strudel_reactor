@@ -48,7 +48,7 @@ export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, set
                         onChange={e => {
                             const newSettings = { ...settings, cps: { ...settings.cps, bpm: Number(e.target.value) } };
                             setSettings(newSettings);
-                            onPreprocess(newSettings); // call Proc with new settings
+                            onPreprocess(newSettings);
                         }}
                     />
                 </label>
@@ -77,19 +77,19 @@ export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, set
             </div>
             {/* Volume Slider (actually changes the settings)*/}
             <div className="control-block">
-                <label>Volume: {settings.volume.toFixed(2)}</label>
+                <label>Volume: {settings.volume.main.toFixed(2)}</label>
                 <input
                     type="range"
                     min="0"
                     max="1"
                     step="0.01"
-                    value={settings.volume}
-                    onChange={(e) =>
+                    value={settings.volume.main}
+                    onChange={(e) => {
                         setSettings({
                             ...settings,
-                            volume: Number(e.target.value)
-                        })
-                    }
+                            volume: { main: Number(e.target.value) }
+                        });
+                    }}
                 />
             </div>
 
@@ -109,6 +109,42 @@ export default function Controls({ onPreprocess, onProcPlay, onPlay, onStop, set
                     Mute
                 </label>
             </div>
+            {/* Reverb slider (follow same logic as volume)*/}
+            <div className="control-block">
+                <label>Reverb: {settings.effects.reverb.toFixed(2)}</label>
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={settings.effects.reverb}
+                    onChange={(e) =>
+                        setSettings({
+                            ...settings,
+                            effects: { ...settings.effects, reverb: Number(e.target.value) }
+                        })
+                    }
+                />
+            </div>
+
+            {/* Delay slider (follow same logic as volume)*/}
+            <div className="control-block">
+                <label>Delay: {settings.effects.delay.toFixed(2)}</label>
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={settings.effects.delay}
+                    onChange={(e) =>
+                        setSettings({
+                            ...settings,
+                            effects: { ...settings.effects, delay: Number(e.target.value) }
+                        })
+                    }
+                />
+            </div>
         </div>
+
     );
 }

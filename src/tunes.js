@@ -1,5 +1,11 @@
 export const stranger_tune = `setcps({newCPS})
 
+all(x => x.gain({VOLUME}))
+all(x => x.room({REVERB}))
+all(x => x.delay({DELAY}))
+
+// main file
+
 samples('github:algorave-dave/samples')
 samples('https://raw.githubusercontent.com/tidalcycles/Dirt-Samples/master/strudel.json')
 samples('https://raw.githubusercontent.com/Mittans/tidal-drum-machines/main/machines/tidal-drum-machines.json')
@@ -97,7 +103,6 @@ stack(
 
 
 //Remixed and reproduced from Algorave Dave's code found here: https://www.youtube.com/watch?v=ZCcpWzhekEY
-// all(x => x.gain(mouseX.range(0,1)))
 // all(x => x.log())
 
 // @version 1.2`;

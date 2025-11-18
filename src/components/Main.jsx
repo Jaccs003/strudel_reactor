@@ -29,8 +29,8 @@ export default function Main() {
     // settings control for future use
     const [settings, setSettings] = useState({
         instruments: { bass: true, drums: true, arp: true }, // added early for future use with isolating instruments for muting etc.
-        effects: { reverb: false, delay: false }, //added early for future use with effects
-        volume: 0.5,
+        effects: { reverb: 0.1, delay: 0.1 }, //changed to numbers to avoid switching between values and booleans
+        volume: { main: 0.5 },
         speed: 140,
         mute: false,
         cps: { bpm: 140, div: 60, ticks: 4 }
@@ -104,7 +104,7 @@ export default function Main() {
         if (globalEditor && procRef.current) {
             Proc(globalEditor, procRef, settings);
         }
-    }, [settings.cps]);
+    }, [settings.cps, settings.volume, settings.mute, settings.effects]);
 
     return (
         <div>
