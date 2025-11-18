@@ -100,6 +100,11 @@ export default function Main() {
         setGlobalEditor(editor);
     }, [globalEditor]);
 
+    useEffect(() => {
+        if (globalEditor && procRef.current) {
+            Proc(globalEditor, procRef, settings);
+        }
+    }, [settings.cps]);
 
     return (
         <div>

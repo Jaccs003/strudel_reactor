@@ -14,11 +14,3 @@ export function getCPS(settings) {
 
     return "140/60/4";
 }
-
-export function updateCPS(procRef, settings) {
-    let text = procRef.current.value
-
-    text = text.replace(/\{newCPS\}/g, getCPS(settings.cps.bpm));
-
-    return text
-}
